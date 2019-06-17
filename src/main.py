@@ -36,10 +36,33 @@ def handle_person():
 
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
-        if 'username' not in body:
-            raise APIException('You need to specify the username', status_code=400)
-        if 'email' not in body:
-            raise APIException('You need to specify the email', status_code=400)
+        if "username" not in body:
+            raise APIException("You need to specify the username", status_code=400)
+        if "email" not in body:
+            raise APIException("You need to specify the email", status_code=400)
+        if  "lastname" not in body:
+            raise APIException("You need to specify Last Name", status_code=400)
+        if "firstname" not in body:
+            raise APIException("You need to specify the First Name")
+        if "middlename" not in body:
+            raise APIException("You need to specify the Middle Name or N/A")
+        if "sex" not in body:
+            raise APIException("You need to specify sex")
+        if "dateOfBirth" not in body:
+            raise APIException("You need to specify your date of birth")
+        if "countyOfBirth" not in body:
+            raise APIException("You need to specify your country of birth or N/A")
+        if "citizenship" not in body:
+            raise APIException("You need to specify your citizenship or N/A")
+        if "US_Address" not in body:
+            raise APIException("You need to specify your address")
+        if "city" not in body:
+            raise APIException("You need to specify the city")
+        if "state" not in body:
+            raise APIException("You need to specify state")
+        if "zip" not in body:
+            raise APIException("You need to specify zip code")
+
 
         user1 = Person(username=body['username'], email=body['email'])
         db.session.add(user1)
