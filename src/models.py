@@ -78,7 +78,7 @@ def serialize(self):
 
 
     def __repr__(self):
-        return '<Spouse %r>' % self.email
+        return '<Spouse %r>' % self.spouse.id
 
     def serialize(self):
         return {
@@ -96,6 +96,7 @@ def serialize(self):
             "state": self.state,
             "zip": self.zip,
             "mobile": self.mobile,
+            "spouse_id": self.spouse_id
         }
 
 
