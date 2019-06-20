@@ -8,6 +8,9 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from models import db, Person
+from models import db, Spouse
+from models import db, Application
+from models import db, Forms
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_CONNECTION_STRING')
@@ -121,7 +124,6 @@ def get_single_person(person_id):
     return "Invalid Method", 404
 
 @app.route('/spouse', methods=['POST', 'GET'])
-
 def handle_spouse():
     """
     Create spouse and retrieve all spouse
@@ -188,7 +190,7 @@ def get_single_spouse(spouse_id):
 
     user1 = Spouse.query.get(spouse_id)
     if user1 is None:
-            raise APIException('User not found', status_code=404)
+        raise APIException('User not found', status_code=404)
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
