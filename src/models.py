@@ -12,7 +12,7 @@ class Person(db.Model):
     __tablename__ = "person"
     spouse = db.relationship("Spouse", uselist=False, back_populates="person")
     id = db.Column(db.Integer, primary_key=True)
-    person_id = db.Column(db.Integer, unique=True, nullable=False)
+
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     lastname = db.Column(db.String(120), unique=False, nullable=True)
@@ -95,13 +95,16 @@ class Spouse(db.Model):
             "mobile": self.mobile
         }
 
+
 class Application(db.Model):
     __tablename__ = 'application'
     id = db.Column(db.Integer, primary_key=True)
-    children = db.relationship("Forms")
+    forms_id = db.Column(db.Integer, db.ForeignKey("forms.id"))
+    forms = db.relationship("Forms", back_populates = "application")
+
     application_name = db.Column(db.String(80), unique=True, nullable=False)
 
-    def __repr__(self): return '<Application %r>' % self.application_id
+    def __repr__(self): return '<Application %r>' % self.application.id
 
     def serialize(self):
         return {
@@ -112,11 +115,10 @@ class Application(db.Model):
 class Forms(db.Model):
     __tablename__ = "forms"
     id = db.Column(db.Integer, primary_key=True)
-
-    application_id = db.Column(db.Integer, db.ForeignKey("application.id"))
+    application = db.relationship("Application", back_populates="forms")
     forms_name = db.Column(db.String(120), unique=False, nullable=False)
 
-    def __repr__(self): return '<Forms %r>' % self.forms_id
+    def __repr__(self): return '<Forms %r>' % self.forms.id
 
     def serialize(self):
         return {
