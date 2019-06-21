@@ -40,7 +40,7 @@ def handle_person():
             raise APIException("You need to specify the username", status_code=400)
         if "email" not in body:
             raise APIException("You need to specify the email", status_code=400)
-        if  "lastname" not in body:
+        if "lastname" not in body:
             raise APIException("You need to specify Last Name", status_code=400)
         if "firstname" not in body:
             raise APIException("You need to specify the First Name", status_code=400)
@@ -65,12 +65,10 @@ def handle_person():
         if "mobile" not in body:
             raise APIException("You need to specify your phone number or N/A", status_code=400)
 
-    user1 = Person(username=body["username"], email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], sex=body["sex"], dateOfBirth=body["dateOfBirth"], countryOfBirth=body["countryOfBirth"], citizenship=body["citizenship"], US_Address=body["US_Address"], city=body["city"], state=body["state"], zip=body["zip"], mobile=body["mobile"])
-
-    db.session.add(user1)
-    db.session.commit()
-    return "ok", 200
-
+        user1 = Person(username=body["username"], email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], sex=body["sex"], dateOfBirth=body["dateOfBirth"], countryOfBirth=body["countryOfBirth"], citizenship=body["citizenship"], US_Address=body["US_Address"], city=body["city"], state=body["state"], zip=body["zip"], mobile=body["mobile"])
+        db.session.add(user1)
+        db.session.commit()
+        return "ok", 200
     # GET request
     if request.method == 'GET':
         all_people = Person.query.all()
@@ -78,7 +76,6 @@ def handle_person():
         return jsonify(all_people), 200
 
     return "Invalid Method", 404
-
 
 @app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
 def get_single_person(person_id):
@@ -124,7 +121,6 @@ def get_single_person(person_id):
             raise APIException("You need to specify zip code", status_code=400)
         if "mobile" not in body:
             raise APIException("You need to specify your phone number or N/A", status_code=400)
-
 
         db.session.commit()
 
