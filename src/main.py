@@ -36,8 +36,7 @@ def handle_person():
 
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
-        if "username" not in body:
-            raise APIException("You need to specify the username", status_code=400)
+
         if "email" not in body:
             raise APIException("You need to specify the email", status_code=400)
         if "lastname" not in body:
@@ -65,7 +64,7 @@ def handle_person():
         if "mobile" not in body:
             raise APIException("You need to specify your phone number or N/A", status_code=400)
 
-        user1 = Person(username=body["username"], email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], sex=body["sex"], dateOfBirth=body["dateOfBirth"], countryOfBirth=body["countryOfBirth"], citizenship=body["citizenship"], US_Address=body["US_Address"], city=body["city"], state=body["state"], zip=body["zip"], mobile=body["mobile"])
+        user1 = Person(username=body["username"],email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], sex=body["sex"], dateOfBirth=body["dateOfBirth"], countryOfBirth=body["countryOfBirth"], citizenship=body["citizenship"], US_Address=body["US_Address"], mobile=body["mobile"],apartment=body["apartment"], city=body["city"], state=body["state"], zip=body["zip"])
         db.session.add(user1)
         db.session.commit()
         return "ok", 200
