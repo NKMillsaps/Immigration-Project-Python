@@ -39,32 +39,20 @@ def handle_person():
 
         if "email" not in body:
             raise APIException("You need to specify the email", status_code=400)
+        if "username" not in body:
+            raise APIException("You need to specify the username", status_code=400)
         if "lastname" not in body:
             raise APIException("You need to specify Last Name", status_code=400)
         if "firstname" not in body:
             raise APIException("You need to specify the First Name", status_code=400)
         if "middlename" not in body:
             raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "sex" not in body:
-            raise APIException("You need to specify gender", status_code=400)
-        if "dateOfBirth" not in body:
-            raise APIException("You need to specify your date of birth", status_code=400)
-        if "countryOfBirth" not in body:
-            raise APIException("You need to specify your country of birth or N/A", status_code=400)
-        if "citizenship" not in body:
-            raise APIException("You need to specify your citizenship or N/A", status_code=400)
-        if "US_Address" not in body:
-            raise APIException("You need to specify your address", status_code=400)
-        if "city" not in body:
-            raise APIException("You need to specify the city", status_code=400)
-        if "state" not in body:
-            raise APIException("You need to specify state", status_code=400)
-        if "zip" not in body:
-            raise APIException("You need to specify zip code", status_code=400)
+        if "dayPhone" not in body:
+            raise APIException("You need to specify Day Phone or N/A", status_code=400)
         if "mobile" not in body:
-            raise APIException("You need to specify your phone number or N/A", status_code=400)
+            raise APIException("You need to specify your phone number", status_code=400)
 
-        user1 = Person(username=body["username"],email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], sex=body["sex"], dateOfBirth=body["dateOfBirth"], countryOfBirth=body["countryOfBirth"], citizenship=body["citizenship"], US_Address=body["US_Address"], mobile=body["mobile"],apartment=body["apartment"], city=body["city"], state=body["state"], zip=body["zip"])
+        user1 = Person(email=body["email"], username=body["username"],lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"] )
         db.session.add(user1)
         db.session.commit()
         return "ok", 200
@@ -84,45 +72,28 @@ def get_single_person(person_id):
 
     # PUT request
     if request.method == 'PUT':
+        user1 = Person.query.get(person_id)
         body = request.get_json()
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
-
-        user1 = Person.query.get(person_id)
         if user1 is None:
             raise APIException('User not found', status_code=404)
-
-        if "username" in body:
-            user1.username = body["username"]
-        if "email" in body:
-            user1.email = body["email"]
+        if "email" not in body:
+            raise APIException("You need to specify the email", status_code=400)
+        if "username" not in body:
+            raise APIException("You need to specify the username", status_code=400)
         if "lastname" not in body:
             raise APIException("You need to specify Last Name", status_code=400)
         if "firstname" not in body:
             raise APIException("You need to specify the First Name", status_code=400)
         if "middlename" not in body:
             raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "sex" not in body:
-            raise APIException("You need to specify gender", status_code=400)
-        if "dateOfBirth" not in body:
-            raise APIException("You need to specify your date of birth", status_code=400)
-        if "countryOfBirth" not in body:
-            raise APIException("You need to specify your country of birth or N/A", status_code=400)
-        if "citizenship" not in body:
-            raise APIException("You need to specify your citizenship or N/A", status_code=400)
-        if "US_Address" not in body:
-            raise APIException("You need to specify your address", status_code=400)
-        if "city" not in body:
-            raise APIException("You need to specify the city", status_code=400)
-        if "state" not in body:
-            raise APIException("You need to specify state", status_code=400)
-        if "zip" not in body:
-            raise APIException("You need to specify zip code", status_code=400)
+        if "dayPhone" not in body:
+            raise APIException("You need to specify Day Phone or N/A", status_code=400)
         if "mobile" not in body:
-            raise APIException("You need to specify your phone number or N/A", status_code=400)
+            raise APIException("You need to specify your phone number", status_code=400)
 
         db.session.commit()
-
         return jsonify(user1.serialize()), 200
 
     # GET request
@@ -163,27 +134,12 @@ def handle_spouse():
             raise APIException("You need to specify the First Name", status_code=400)
         if "middlename" not in body:
             raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "sex" not in body:
-            raise APIException("You need to specify sex", status_code=400)
-        if "dateOfBirth" not in body:
-            raise APIException("You need to specify your date of birth", status_code=400)
-        if "countryOfBirth" not in body:
-            raise APIException("You need to specify your country of birth or N/A", status_code=400)
-        if "citizenship" not in body:
-            raise APIException("You need to specify your citizenship or N/A", status_code=400)
-        if "US_Address" not in body:
-            raise APIException("You need to specify your address", status_code=400)
-        if "city" not in body:
-            raise APIException("You need to specify the city", status_code=400)
-        if "state" not in body:
-            raise APIException("You need to specify state", status_code=400)
-        if "zip" not in body:
-            raise APIException("You need to specify zip code", status_code=400)
+        if "dayPhone" not in body:
+            raise APIException("You need to specify Day Phone or N/A", status_code=400)
         if "mobile" not in body:
-            raise APIException("You need to specify your phone number or N/A", status_code=400)
+            raise APIException("You need to specify your phone number", status_code=400)
 
-
-        spouse1 = Spouse(email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], sex=body["sex"], dateOfBirth=body["dateOfBirth"], countryOfBirth=body["countryOfBirth"], citizenship=body["citizenship"], US_Address=body["US_Address"], city=body["city"], state=body["state"], zip=body["zip"], mobile=body["mobile"])
+        spouse1 = Spouse(email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"])
         db.session.add(spouse1)
         db.session.commit()
         return "ok", 200
@@ -215,32 +171,18 @@ def get_single_spouse(spouse_id):
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if "email" in body:
-        spouse1.email = body["email"]
-    if "lastname" not in body:
-        raise APIException("You need to specify Last Name", status_code=400)
-    if "firstname" not in body:
-        raise APIException("You need to specify the First Name", status_code=400)
-    if "middlename" not in body:
-        raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-    if "sex" not in body:
-        raise APIException("You need to specify sex", status_code=400)
-    if "dateOfBirth" not in body:
-        raise APIException("You need to specify your date of birth", status_code=400)
-    if "countryOfBirth" not in body:
-        raise APIException("You need to specify your country of birth or N/A", status_code=400)
-    if "citizenship" not in body:
-        raise APIException("You need to specify your citizenship or N/A", status_code=400)
-    if "US_Address" not in body:
-        raise APIException("You need to specify your address", status_code=400)
-    if "city" not in body:
-        raise APIException("You need to specify the city", status_code=400)
-    if "state" not in body:
-        raise APIException("You need to specify state", status_code=400)
-    if "zip" not in body:
-        raise APIException("You need to specify zip code", status_code=400)
-    if "mobile" not in body:
-        raise APIException("You need to specify your phone number or N/A", status_code=400)
+        if "email" not in body:
+            raise APIException("You need to specify the email", status_code=400)
+        if "lastname" not in body:
+            raise APIException("You need to specify Last Name", status_code=400)
+        if "firstname" not in body:
+            raise APIException("You need to specify the First Name", status_code=400)
+        if "middlename" not in body:
+            raise APIException("You need to specify the Middle Name or N/A", status_code=400)
+        if "dayPhone" not in body:
+            raise APIException("You need to specify Day Phone or N/A", status_code=400)
+        if "mobile" not in body:
+            raise APIException("You need to specify your phone number", status_code=400)
 
     db.session.commit()
     return jsonify(spouse1.serialize()), 200
@@ -401,6 +343,7 @@ def get_single_forms(forms_id):
         return "ok", 200
 
     return "Invalid Method", 404
+
 
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
