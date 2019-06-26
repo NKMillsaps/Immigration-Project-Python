@@ -33,6 +33,15 @@ def handle_person():
     # POST request
     if request.method == 'POST':
         body = request.get_json()
+        spouse = []
+        for g in body['spouse']:
+            spouses = Spouse.query.get(g)
+            spouse.append(spouses)
+
+        application = []
+        for a in body['application']:
+            applications = Application.query.get(a)
+            application.append(applications)
 
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
@@ -52,7 +61,7 @@ def handle_person():
         if "mobile" not in body:
             raise APIException("You need to specify your phone number", status_code=400)
 
-        user1 = Person(email=body["email"], username=body["username"],lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"] )
+        user1 = Person(email=body["email"], application=application, spouse=spouse, username=body["username"],lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"] )
         db.session.add(user1)
         db.session.commit()
         return "ok", 200
@@ -72,28 +81,33 @@ def get_single_person(person_id):
 
     # PUT request
     if request.method == 'PUT':
-        user1 = Person.query.get(person_id)
         body = request.get_json()
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
+
+        user1 = Person.query.get(person_id)
         if user1 is None:
             raise APIException('User not found', status_code=404)
-        if "email" not in body:
-            raise APIException("You need to specify the email", status_code=400)
-        if "username" not in body:
-            raise APIException("You need to specify the username", status_code=400)
-        if "lastname" not in body:
-            raise APIException("You need to specify Last Name", status_code=400)
-        if "firstname" not in body:
-            raise APIException("You need to specify the First Name", status_code=400)
-        if "middlename" not in body:
-            raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "dayPhone" not in body:
-            raise APIException("You need to specify Day Phone or N/A", status_code=400)
-        if "mobile" not in body:
-            raise APIException("You need to specify your phone number", status_code=400)
+
+        if "username" in body:
+            user1.username = body["username"]
+        if "email" in body:
+            user1.email = body["email"]
+        application = []
+        for a in body['application']:
+            applications = Application.query.get(a)
+            application.append(applications)
+        if "application" in body:
+            user1.application = application
+        spouse = []
+        for g in body['spouse']:
+            spouses = Spouse.query.get(g)
+            spouse.append(spouses)
+        if "spouse" in body:
+            user1.spouse = spouse
 
         db.session.commit()
+
         return jsonify(user1.serialize()), 200
 
     # GET request
@@ -215,13 +229,17 @@ def handle_application():
     # POST request
     if request.method == 'POST':
         body = request.get_json()
+        forms = []
+        for g in body['forms']:
+            form = Forms.query.get(g)
+            forms.append(form)
 
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
         if "application_name" not in body:
             raise APIException("You need to specify the application", status_code=400)
 
-        apps1 = Application(application_name=body['application_name'])
+        apps1 = Application(application_name=body['application_name'],forms=forms)
         db.session.add(apps1)
         db.session.commit()
         return "ok", 200

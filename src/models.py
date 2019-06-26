@@ -20,11 +20,17 @@ class Person(db.Model):
     firstname = db.Column(db.String(120), nullable=True)
     middlename = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(12), nullable=True)
-    mobile = db.Column(db.String(20), unique=False, nullable=True)
+    mobile = db.Column(db.String(20), nullable=True)
     #spouse_id = db.Column(db.Integer, unique=True, nullable=False)
 
 
     def serialize(self):
+        spouse = []
+        for p in self.spouse:
+            spouse.append(p.serialize())
+        application = []
+        for i in self.application:
+            application.append(i.serialize())
         return {
             "id": self.id,
             "email": self.email,
@@ -33,7 +39,9 @@ class Person(db.Model):
             "firstname": self.firstname,
             "middlename": self.middlename,
             "dayPhone": self.dayPhone,
-            "modile": self.mobile
+            "mobile": self.mobile,
+            "application": application,
+            "spouse": spouse
         }
 
 class Spouse(db.Model):
@@ -46,7 +54,7 @@ class Spouse(db.Model):
     firstname = db.Column(db.String(120), nullable=True)
     middlename = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(20), nullable=True)
-    mobile = db.Column(db.String(20), unique=False, nullable=True)
+    mobile = db.Column(db.String(20), nullable=True)
 
     def serialize(self):
         return {
@@ -66,10 +74,16 @@ class Application(db.Model):
     application_name = db.Column(db.String(80), unique=True, nullable=False)
     forms = db.relationship("Forms")
 
+
+
     def serialize(self):
+        forms = []
+        for g in self.forms:
+            forms.append(g.serialize())
         return {
             "id": self.id,
-            "application_name": self.application_name
+            "application_name": self.application_name,
+            "forms": forms
         }
 
 class Forms(db.Model):
