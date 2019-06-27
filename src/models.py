@@ -21,6 +21,14 @@ class Person(db.Model):
     middlename = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(12), nullable=True)
     mobile = db.Column(db.String(20), nullable=True)
+    logged_in = db.Column(db.Boolean(), default=False)
+    address = db.Column(db.String(120), nullable=True)
+    apartment = db.Column(db.String(120), nullable=True)
+    city = db.Column(db.String(120), nullable=True)
+    state = db.Column(db.String(120), nullable=True)
+    zip_code = db.Column(db.String(120), nullable=True)
+    country = db.Column(db.String(120), nullable=True)
+
     #spouse_id = db.Column(db.Integer, unique=True, nullable=False)
 
 
@@ -38,9 +46,16 @@ class Person(db.Model):
             "lastname": self.lastname,
             "firstname": self.firstname,
             "middlename": self.middlename,
+            "logged_in": self.logged_in,
+            "application": application,
+            "address": self.address,
+            "apartment": self.apartment,
+            "city": self.city,
+            "state": self.state,
+            "zip_code": self.zip_code,
+            "country": self.country,
             "dayPhone": self.dayPhone,
             "mobile": self.mobile,
-            "application": application,
             "spouse": spouse
         }
 
@@ -53,6 +68,12 @@ class Spouse(db.Model):
     lastname = db.Column(db.String(120), nullable=True)
     firstname = db.Column(db.String(120), nullable=True)
     middlename = db.Column(db.String(120), nullable=True)
+    address = db.Column(db.String(120), nullable=True)
+    apartment = db.Column(db.String(120), nullable=True)
+    city = db.Column(db.String(120), nullable=True)
+    state = db.Column(db.String(120), nullable=True)
+    zip_code = db.Column(db.String(120), nullable=True)
+    country = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(20), nullable=True)
     mobile = db.Column(db.String(20), nullable=True)
 
@@ -63,6 +84,12 @@ class Spouse(db.Model):
             "lastname": self.lastname,
             "firstname": self.firstname,
             "middlename": self.middlename,
+            "address": self.address,
+            "apartment": self.apartment,
+            "city": self.city,
+            "state": self.state,
+            "zip_code": self.zip_code,
+            "country": self.country,
             "dayPhone": self.dayPhone,
             "mobile": self.mobile
         }
@@ -92,9 +119,40 @@ class Forms(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     forms_name = db.Column(db.String(120), unique=False, nullable=False)
     application_id = db.Column(db.Integer, db.ForeignKey('application.id'))
+    is_completed = db.Column(db.Boolean(), default=False)
+    email = db.Column(db.String(120), nullable=True)
+    lastname = db.Column(db.String(120), nullable=True)
+    firstname = db.Column(db.String(120), nullable=True)
+    middlename = db.Column(db.String(120), nullable=True)
+    dayPhone = db.Column(db.String(12), nullable=True)
+    mobile = db.Column(db.String(20), nullable=True)
+    logged_in = db.Column(db.Boolean(), default=False)
+    address = db.Column(db.String(120), nullable=True)
+    apartment = db.Column(db.String(120), nullable=True)
+    city = db.Column(db.String(120), nullable=True)
+    state = db.Column(db.String(120), nullable=True)
+    zip_code = db.Column(db.String(120), nullable=True)
+    country = db.Column(db.String(120), nullable=True)
+
+
+
 
     def serialize(self):
         return {
             "id": self.id,
-            "forms_name": self.forms_name
+            "forms_name": self.forms_name,
+            "is_completed": self.is_completed,
+            "email": self.email,
+            "lastname": self.lastname,
+            "firstname": self.firstname,
+            "middlename": self.middlename,
+            "logged_in": self.logged_in,
+            "address": self.address,
+            "apartment": self.apartment,
+            "city": self.city,
+            "state": self.state,
+            "zip_code": self.zip_code,
+            "country": self.country,
+            "dayPhone": self.dayPhone,
+            "mobile": self.mobile
 }

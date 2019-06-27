@@ -7,6 +7,9 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
+from flask_jwt_simple import (
+    JWTManager, jwt_required, create_jwt, get_jwt_identity
+)
 from models import db, Person, Spouse, Application, Forms
 
 app = Flask(__name__)
@@ -15,6 +18,35 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db)
 db.init_app(app)
 CORS(app)
+
+# Setup the Flask-JWT-Simple extension
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+jwt = JWTManager(app)
+
+@app.route('/login', methods=['POST'])
+def login():
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    params = request.get_json()
+    username = params.get('username', None)
+    email = params.get('email', None)
+
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
+    if not email:
+        return jsonify({"msg": "Missing email parameter"}), 400
+
+    usercheck = Person.query.filter_by(username=username, email=email).first()
+    if usercheck == None:
+        return jsonify({"msg": "Bad username or email"}), 401
+    # if username != 'test' or email != 'test':
+    #     return jsonify({"msg": "Bad username or password"}), 401
+
+    # Identity can be any data that is json serializable
+    ret = {'jwt': create_jwt(identity=username)}
+    return jsonify(ret), 200
+
 
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
