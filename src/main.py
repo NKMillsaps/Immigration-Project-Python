@@ -93,7 +93,7 @@ def handle_person():
         if "mobile" not in body:
             raise APIException("You need to specify your phone number", status_code=400)
 
-        user1 = Person(email=body["email"], application=application, spouse=spouse, username=body["username"],lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"] )
+        user1 = Person(email=body["email"], application=application, spouse=spouse, username=body["username"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"] )
         db.session.add(user1)
         db.session.commit()
         return "ok", 200
@@ -125,6 +125,21 @@ def get_single_person(person_id):
             user1.username = body["username"]
         if "email" in body:
             user1.email = body["email"]
+        if "address" in body:
+            user1.address = body["address"]
+        if "apartment" in body:
+            user1.apartment = body["apartment"]
+        if "city" in body:
+            user1.city = body["city"]
+        if "state" in body:
+            user1.state = body["state"]
+        if "zip_code" in body:
+            user1.zip_code = body["zip_code"]
+        if "country" in body:
+            user1.country = body["country"]
+        if "logged_in" in body:
+            user1.logged_in = body["logged_in"]
+
         application = []
         for a in body['application']:
             applications = Application.query.get(a)
@@ -371,6 +386,38 @@ def get_single_forms(forms_id):
 
         if "forms_name" in body:
             form1.forms_name = body["forms_name"]
+        if "address" in body:
+            form1.address = body["address"]
+        if "apartment" in body:
+            form1.apartment = body["apartment"]
+        if "city" in body:
+            form1.city = body["city"]
+        if "state" in body:
+            form1.state = body["state"]
+        if "zip_code" in body:
+            form1.zip_code = body["zip_code"]
+        if "country" in body:
+            form1.country = body["country"]
+        if "is_completed" in body:
+            form1.is_completed = body["is_completed"]
+        if "employer_name" in body:
+            form1.employer_name = body["employer_name"]
+        if "employer_address" in body:
+            form1.employer_address = body["employer_address"]
+        if "employer_apartment" in body:
+            form1.employer_apartment = body["employer_apartment"]
+        if "employer_city" in body:
+            form1.employer_city = body["employer_city"]
+        if "employer_state" in body:
+            form1.employer_state = body ["employer_state"]
+        if "employer_zip_code" in body:
+            form1.employer_zip_code = body["employer_zip_code"]
+        if "employer_dayPhone" in body:
+            form1.employer_dayPhone = body["employer_dayPhone"]
+        if "employer_country" in body:
+            form1.employer_country = body["employer_country"]
+        if "employer_occupation" in body:
+            form1.employer_occupation = body["employer_occupation"]
 
         db.session.commit()
 

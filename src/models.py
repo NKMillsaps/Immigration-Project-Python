@@ -126,16 +126,21 @@ class Forms(db.Model):
     middlename = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(12), nullable=True)
     mobile = db.Column(db.String(20), nullable=True)
-    logged_in = db.Column(db.Boolean(), default=False)
     address = db.Column(db.String(120), nullable=True)
     apartment = db.Column(db.String(120), nullable=True)
     city = db.Column(db.String(120), nullable=True)
     state = db.Column(db.String(120), nullable=True)
     zip_code = db.Column(db.String(120), nullable=True)
     country = db.Column(db.String(120), nullable=True)
-
-
-
+    employer_name = db.Column(db.String(120), nullable=True)
+    employer_address = db.Column(db.String(120), nullable=True)
+    employer_apartment = db.Column(db.String(120), nullable=True)
+    employer_city = db.Column(db.String(120), nullable=True)
+    employer_state = db.Column(db.String(120), nullable=True)
+    employer_zip_code = db.Column(db.String(120), nullable=True)
+    employer_dayPhone = db.Column(db.String(12), nullable=True)
+    employer_country = db.Column(db.String(120), nullable=True)
+    employer_occupation = db.Column(db.String(120), nullable=True)
 
     def serialize(self):
         return {
@@ -146,7 +151,6 @@ class Forms(db.Model):
             "lastname": self.lastname,
             "firstname": self.firstname,
             "middlename": self.middlename,
-            "logged_in": self.logged_in,
             "address": self.address,
             "apartment": self.apartment,
             "city": self.city,
@@ -154,5 +158,14 @@ class Forms(db.Model):
             "zip_code": self.zip_code,
             "country": self.country,
             "dayPhone": self.dayPhone,
-            "mobile": self.mobile
+            "mobile": self.mobile,
+            "employer_name": self.employer_name,
+            "employer_address": self.employer_address,
+            "employer_apartment": self.employer_apartment,
+            "employer_city": self.employer_city,
+            "employer_state": self.employer_state,
+            "employer_zip_code": self.employer_zip_code,
+            "employer_dayPhone": self.employer_dayPhone,
+            "employer_country": self.employer_country,
+            "employer_occupation": self.employer_dayPhone,
 }
