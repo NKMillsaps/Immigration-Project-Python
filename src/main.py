@@ -133,7 +133,7 @@ def get_single_person(person_id):
             user1.city = body["city"]
         if "state" in body:
             user1.state = body["state"]
-        if "zip_code" in body:
+        if "zipCode" in body:
             user1.zipCode = body["zipCode"]
         if "country" in body:
             user1.country = body["country"]
