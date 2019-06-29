@@ -134,7 +134,7 @@ def get_single_person(person_id):
         if "state" in body:
             user1.state = body["state"]
         if "zip_code" in body:
-            user1.zip_code = body["zip_code"]
+            user1.zipCode = body["zipCode"]
         if "country" in body:
             user1.country = body["country"]
         if "logged_in" in body:
@@ -187,23 +187,23 @@ def handle_spouse():
 
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
-        if "email" not in body:
+        if "spouseEmail" not in body:
             raise APIException("You need to specify the email", status_code=400)
-        if "lastname" not in body:
+        if "spouseLastname" not in body:
             raise APIException("You need to specify Last Name", status_code=400)
-        if "firstname" not in body:
+        if "spouseFirstname" not in body:
             raise APIException("You need to specify the First Name", status_code=400)
-        if "middlename" not in body:
+        if "spouseMiddlename" not in body:
             raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "dayPhone" not in body:
+        if "spouseDayPhone" not in body:
             raise APIException("You need to specify Day Phone or N/A", status_code=400)
-        if "mobile" not in body:
+        if "spouseMobile" not in body:
             raise APIException("You need to specify your phone number", status_code=400)
 
-        spouse1 = Spouse(email=body["email"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"])
+        spouse1 = Spouse(spouseEmail=body["spouseEmail"], spouseLastname=body["spouseLastname"], spouseFirstname=body["spouseFirstname"], spouseMiddlename=body["spouseMiddlename"], spouseDayPhone=body["spouseDayPhone"], spouseMobile=body["spouseMobile"])
         db.session.add(spouse1)
         db.session.commit()
-        return "ok", 200
+        return jsonify(spouse1.serialize()), 200
 
     # GET request
     if request.method == 'GET':
@@ -232,17 +232,17 @@ def get_single_spouse(spouse_id):
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-        if "email" not in body:
+        if "spouseEmail" not in body:
             raise APIException("You need to specify the email", status_code=400)
-        if "lastname" not in body:
+        if "spouseLastname" not in body:
             raise APIException("You need to specify Last Name", status_code=400)
-        if "firstname" not in body:
+        if "spouseFirstname" not in body:
             raise APIException("You need to specify the First Name", status_code=400)
-        if "middlename" not in body:
+        if "spouseMiddlename" not in body:
             raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "dayPhone" not in body:
+        if "spouseDayPhone" not in body:
             raise APIException("You need to specify Day Phone or N/A", status_code=400)
-        if "mobile" not in body:
+        if "spouseMobile" not in body:
             raise APIException("You need to specify your phone number", status_code=400)
 
     db.session.commit()
@@ -394,30 +394,30 @@ def get_single_forms(forms_id):
             form1.city = body["city"]
         if "state" in body:
             form1.state = body["state"]
-        if "zip_code" in body:
-            form1.zip_code = body["zip_code"]
+        if "zipCode" in body:
+            form1.zipCode = body["zipCode"]
         if "country" in body:
             form1.country = body["country"]
         if "is_completed" in body:
             form1.is_completed = body["is_completed"]
-        if "employer_name" in body:
-            form1.employer_name = body["employer_name"]
-        if "employer_address" in body:
-            form1.employer_address = body["employer_address"]
-        if "employer_apartment" in body:
-            form1.employer_apartment = body["employer_apartment"]
-        if "employer_city" in body:
-            form1.employer_city = body["employer_city"]
-        if "employer_state" in body:
-            form1.employer_state = body ["employer_state"]
-        if "employer_zip_code" in body:
-            form1.employer_zip_code = body["employer_zip_code"]
-        if "employer_dayPhone" in body:
-            form1.employer_dayPhone = body["employer_dayPhone"]
-        if "employer_country" in body:
-            form1.employer_country = body["employer_country"]
-        if "employer_occupation" in body:
-            form1.employer_occupation = body["employer_occupation"]
+        if "employerName" in body:
+            form1.employer_name = body["employerName"]
+        if "employerAddress" in body:
+            form1.employer_address = body["employerAddress"]
+        if "employerApartment" in body:
+            form1.employer_apartment = body["employerApartment"]
+        if "employerCity" in body:
+            form1.employer_city = body["employerCity"]
+        if "employerState" in body:
+            form1.employer_state = body["employerState"]
+        if "employerZipCode" in body:
+            form1.employer_zipCode = body["employerZipCode"]
+        if "employerDayPhone" in body:
+            form1.employer_dayPhone = body["employerDayPhone"]
+        if "employerCountry" in body:
+            form1.employer_country = body["employerCountry"]
+        if "employerOccupation" in body:
+            form1.employerOccupation = body["employerOccupation"]
 
         db.session.commit()
 
