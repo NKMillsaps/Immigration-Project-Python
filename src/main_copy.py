@@ -189,8 +189,18 @@ def handle_spouse():
             raise APIException("You need to specify the request body as a json object", status_code=400)
         if "spouseEmail" not in body:
             raise APIException("You need to specify the email", status_code=400)
+        if "spouseLastname" not in body:
+            raise APIException("You need to specify Last Name", status_code=400)
+        if "spouseFirstname" not in body:
+            raise APIException("You need to specify the First Name", status_code=400)
+        if "spouseMiddlename" not in body:
+            raise APIException("You need to specify the Middle Name or N/A", status_code=400)
+        if "spouseDayPhone" not in body:
+            raise APIException("You need to specify Day Phone or N/A", status_code=400)
+        if "spouseMobile" not in body:
+            raise APIException("You need to specify your mobile phone number", status_code=400)
 
-        spouse1 = Spouse(spouseEmail=body["spouseEmail"])
+        spouse1 = Spouse(spouseEmail=body["spouseEmail"], spouseLastname=body["spouseLastname"], spouseFirstname=body["spouseFirstname"], spouseMiddlename=body["spouseMiddlename"], spouseDayPhone=body["spouseDayPhone"], spouseMobile=body["spouseMobile"])
         db.session.add(spouse1)
         db.session.commit()
         return jsonify(spouse1.serialize()), 200
@@ -224,6 +234,16 @@ def get_single_spouse(spouse_id):
         raise APIException("You need to specify the request body as a json object", status_code=400)
         if "spouseEmail" not in body:
             raise APIException("You need to specify the email", status_code=400)
+        if "spouseLastname" not in body:
+            raise APIException("You need to specify Last Name", status_code=400)
+        if "spouseFirstname" not in body:
+            raise APIException("You need to specify the First Name", status_code=400)
+        if "spouseMiddlename" not in body:
+            raise APIException("You need to specify the Middle Name or N/A", status_code=400)
+        if "spouseDayPhone" not in body:
+            raise APIException("You need to specify Day Phone or N/A", status_code=400)
+        if "spouseMobile" not in body:
+            raise APIException("You need to specify your phone number", status_code=400)
 
     db.session.commit()
     return jsonify(spouse1.serialize()), 200
@@ -266,7 +286,7 @@ def handle_application():
         if "application_name" not in body:
             raise APIException("You need to specify the application", status_code=400)
 
-        apps1 = Application(application_name=body['application_name'], forms=forms)
+        apps1 = Application(application_name=body['application_name'],forms=forms)
         db.session.add(apps1)
         db.session.commit()
         return "ok", 200
@@ -380,6 +400,24 @@ def get_single_forms(forms_id):
             form1.country = body["country"]
         if "is_completed" in body:
             form1.is_completed = body["is_completed"]
+        if "employerName" in body:
+            form1.employer_name = body["employerName"]
+        if "employerAddress" in body:
+            form1.employer_address = body["employerAddress"]
+        if "employerApartment" in body:
+            form1.employer_apartment = body["employerApartment"]
+        if "employerCity" in body:
+            form1.employer_city = body["employerCity"]
+        if "employerState" in body:
+            form1.employer_state = body["employerState"]
+        if "employerZipCode" in body:
+            form1.employer_zipCode = body["employerZipCode"]
+        if "employerDayPhone" in body:
+            form1.employer_dayPhone = body["employerDayPhone"]
+        if "employerCountry" in body:
+            form1.employer_country = body["employerCountry"]
+        if "employerOccupation" in body:
+            form1.employerOccupation = body["employerOccupation"]
 
         db.session.commit()
 

@@ -65,36 +65,12 @@ class Spouse(db.Model):
     # person = db.relationship("Person", back_populates="spouse")
     id = db.Column(db.Integer, primary_key=True)
     spouseEmail = db.Column(db.String(120), unique=True, nullable=False)
-    spouseLastname = db.Column(db.String(120), nullable=True)
-    spouseFirstname = db.Column(db.String(120), nullable=True)
-    spouseMiddlename = db.Column(db.String(120), nullable=True)
-    spouseAddress = db.Column(db.String(120), nullable=True)
-    spouseApartment = db.Column(db.String(120), nullable=True)
-    spouseCity = db.Column(db.String(120), nullable=True)
-    spouseState = db.Column(db.String(120), nullable=True)
-    spouseZipCode = db.Column(db.String(120), nullable=True)
-    spouseCountry = db.Column(db.String(120), nullable=True)
-    spouseDayPhone = db.Column(db.String(20), nullable=True)
-    spouseMobile = db.Column(db.String(20), nullable=True)
-
 
 
     def serialize(self):
         return {
             "id": self.id,
             "spouseEmail": self.spouseEmail,
-            "spouseLastname": self.spouseLastname,
-            "spouseFirstname": self.spouseFirstname,
-            "spouseMiddlename": self.spouseMiddlename,
-            "spouseAddress": self.spouseAddress,
-            "spouseApartment": self.spouseApartment,
-            "spouseCity": self.spouseCity,
-            "spouseState": self.spouseState,
-            "spouseZipCode": self.spouseZipCode,
-            "spouseCountry": self.spouseCountry,
-            "spouseDayPhone": self.spouseDayPhone,
-            "spouseMobile": self.spouseMobile
-
             }
 
 class Application(db.Model):
@@ -135,27 +111,6 @@ class Forms(db.Model):
     state = db.Column(db.String(120), nullable=True)
     zipCode = db.Column(db.String(120), nullable=True)
     country = db.Column(db.String(120), nullable=True)
-    spouseEmail = db.Column (db.String(120), unique=True, nullable=False)
-    spouseLastname = db.Column(db.String(120), nullable=True)
-    spouseFirstname = db.Column(db.String(120), nullable=True)
-    spouseMiddlename = db.Column(db.String(120), nullable=True)
-    spouseAddress = db.Column(db.String(120), nullable=True)
-    spouseApartment = db.Column(db.String(120), nullable=True)
-    spouseCity = db.Column(db.String(120), nullable=True)
-    spouseState = db.Column(db.String(120), nullable=True)
-    spouseZipCode = db.Column(db.String(120), nullable=True)
-    spouseCountry = db.Column(db.String(120), nullable=True)
-    spouseDayPhone = db.Column(db.String(20), nullable=True)
-    spouseMobile = db.Column(db.String(20), nullable=True)
-    employerName = db.Column(db.String(120), nullable=True)
-    employerAddress = db.Column(db.String(120), nullable=True)
-    employerApartment = db.Column(db.String(120), nullable=True)
-    employerCity = db.Column(db.String(120), nullable=True)
-    employerState = db.Column(db.String(120), nullable=True)
-    employerZipCode = db.Column(db.String(120), nullable=True)
-    employerDayPhone = db.Column(db.String(12), nullable=True)
-    employerCountry = db.Column(db.String(120), nullable=True)
-    employerOccupation = db.Column(db.String(120), nullable=True)
 
     def serialize(self):
         return {
@@ -173,28 +128,7 @@ class Forms(db.Model):
             "zipCode": self.zipCode,
             "country": self.country,
             "dayPhone": self.dayPhone,
-            "mobile": self.mobile,
-            "spouseEmail": self.spouseEmail,
-            "spouseLastname": self.spouseLastname,
-            "spouseFirstname": self.spouseFirstname,
-            "spouseMiddlename": self.spouseMiddlename,
-            "spouseAddress": self.spouseAddress,
-            "spouseApartment": self.spouseApartment,
-            "spouseCity": self.spouseCity,
-            "spouseState": self.spouseState,
-            "spouseZipCode": self.spouseZipCode,
-            "spouseCountry": self.spouseCountry,
-            "spouseDayPhone": self.spouseDayPhone,
-            "spouseMobile": self.spouseMobile,
-            "employerName": self.employerName,
-            "employerAddress": self.employerAddress,
-            "employerApartment": self.employerApartment,
-            "employerCity": self.employerCity,
-            "employerState": self.employerState,
-            "employerZipCode": self.employerZipCode,
-            "employerDayPhone": self.employerDayPhone,
-            "employerCountry": self.employerCountry,
-            "employerOccupation": self.employerOccupation
+            "mobile": self.mobile
 }
 
 #  from forms
