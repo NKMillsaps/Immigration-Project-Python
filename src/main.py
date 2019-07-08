@@ -322,6 +322,13 @@ def get_single_application(application_id):
         if "application_name" in body:
             apps1.application_name = body["application_name"]
 
+    forms = []
+    for x_x in body['forms']:
+        form = Forms.query.get(x_x)
+        forms.append(form)
+    if "forms" in body:
+        apps1.forms = forms
+
         db.session.commit()
         return jsonify(apps1.serialize()), 200
 

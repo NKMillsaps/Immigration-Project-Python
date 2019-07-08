@@ -133,7 +133,7 @@ class Forms(db.Model):
     state = db.Column(db.String(120), nullable=True)
     zipCode = db.Column(db.String(120), nullable=True)
     country = db.Column(db.String(120), nullable=True)
-    spouseEmail = db.Column (db.String(120), unique=True, nullable=False)
+    spouseEmail = db.Column(db.String(120), unique=True, nullable=True)
     spouseLastname = db.Column(db.String(120), nullable=True)
     spouseFirstname = db.Column(db.String(120), nullable=True)
     spouseMiddlename = db.Column(db.String(120), nullable=True)
