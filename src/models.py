@@ -34,11 +34,11 @@ class Person(db.Model):
 
     def serialize(self):
         spouse = []
-        for p in self.spouse:
-            spouse.append(p.serialize())
+        for p_p in self.spouse:
+            spouse.append(p_p.serialize())
         application = []
-        for i in self.application:
-            application.append(i.serialize())
+        for i_i in self.application:
+            application.append(i_i.serialize())
         return {
             "id": self.id,
             "email": self.email,
@@ -104,12 +104,10 @@ class Application(db.Model):
     application_name = db.Column(db.String(80), unique=True, nullable=False)
     forms = db.relationship("Forms")
 
-
-
     def serialize(self):
         forms = []
-        for g in self.forms:
-            forms.append(g.serialize())
+        for g_g in self.forms:
+            forms.append(g_g.serialize())
         return {
             "id": self.id,
             "application_name": self.application_name,

@@ -184,31 +184,16 @@ def handle_spouse():
     # POST request
     if request.method == 'POST':
         body = request.get_json()
-        person = []
-        for g_g in body['person']:
-            user = Forms.query.get(g_g)
-            person.append(user)
 
-        # if body is None:
-            # raise APIException("You need to specify the request body as a json object", status_code=400)
+        if body is None:
+            raise APIException("You need to specify the request body as a json object", status_code=400)
         if "spouseEmail" not in body:
             raise APIException("You need to specify the email", status_code=400)
-        if "spouseLastname" not in body:
-            raise APIException("You need to specify Last Name", status_code=400)
-        if "spouseFirstname" not in body:
-            raise APIException("You need to specify the First Name", status_code=400)
-        if "spouseMiddlename" not in body:
-            raise APIException("You need to specify the Middle Name or N/A", status_code=400)
-        if "spouseDayPhone" not in body:
-            raise APIException("You need to specify Day Phone or N/A", status_code=400)
-        if "spouseMobile" not in body:
-            raise APIException("You need to specify your phone number", status_code=400)
 
-        spouse1 = Spouse(spouseEmail=body["spouseEmail"], spouseLastname=body["spouseLastname"], spouseFirstname=body["spouseFirstname"], spouseMiddlename=body["spouseMiddlename"], spouseDayPhone=body["spouseDayPhone"], spouseMobile=body["spouseMobile"])
+        spouse1 = Spouse(spouseEmail=body["spouseEmail"])
         db.session.add(spouse1)
         db.session.commit()
-        return "ok", 200
-        # return jsonify(spouse1.serialize()), 200
+        return jsonify(spouse1.serialize()), 200
 
     # GET request
     if request.method == 'GET':
@@ -223,6 +208,7 @@ def get_single_spouse(spouse_id):
     """
     Single spouse
     """
+
     # PUT request
     if request.method == 'PUT':
         body = request.get_json()
@@ -232,22 +218,12 @@ def get_single_spouse(spouse_id):
     spouse1 = Spouse.query.get(spouse_id)
     if spouse1 is None:
         raise APIException('User not found', status_code=404)
+
+
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if "spouseEmail" in body:
-        spouse1.spouseEmail = body["spouseEmail"]
-    if "spouseAddress" in body:
-        spouse1.spouseAddress = body["spouseAddress"]
-    if "spouseApartment" in body:
-        spouse1.spouseApartment = body["spouseApartment"]
-    if "spouseCity" not in body:
-        spouse1.spouseCity = body["spouseCity"]
-    if "spouseState" not in body:
-        spouse1.spouseState = body["spouseState"]
-    if "spouseZipCode" not in body:
-        spouse1.spouseZipCode = body["spouseZipCode"]
-    if "spouseCountry" not in body:
-        spouse1.spouseCountry = body["spouseCountry"]
+        if "spouseEmail" not in body:
+            raise APIException("You need to specify the email", status_code=400)
 
     db.session.commit()
     return jsonify(spouse1.serialize()), 200
@@ -284,8 +260,9 @@ def handle_application():
         for g_g in body['forms']:
             form = Forms.query.get(g_g)
             forms.append(form)
-    # if body is None:
-        # raise APIException("You need to specify the request body as a json object", status_code=400)
+
+        if body is None:
+            raise APIException("You need to specify the request body as a json object", status_code=400)
         if "application_name" not in body:
             raise APIException("You need to specify the application", status_code=400)
 
@@ -380,8 +357,8 @@ def get_single_forms(forms_id):
     # PUT request
     if request.method == 'PUT':
         body = request.get_json()
-    if body is None:
-        raise APIException("You need to specify the request body as a json object", status_code=400)
+        if body is None:
+            raise APIException("You need to specify the request body as a json object", status_code=400)
 
         form1 = Forms.query.get(forms_id)
         if form1 is None:
@@ -389,18 +366,6 @@ def get_single_forms(forms_id):
 
         if "forms_name" in body:
             form1.forms_name = body["forms_name"]
-        if "email" in body:
-            form1.email = body["email"]
-        if "lastname" in body:
-            form1.lastname = body["lastname"]
-        if "firstname" in body:
-            form1.firstname = body["firstname"]
-        if "middlename" in body:
-            form1.middlename = body["middlename"]
-        if "dayPhone" in body:
-            form1.dayPhone = body["dayPhone"]
-        if "mobile" in body:
-            form1.mobile = body["mobile"]
         if "address" in body:
             form1.address = body["address"]
         if "apartment" in body:
