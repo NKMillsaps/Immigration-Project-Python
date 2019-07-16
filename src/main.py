@@ -185,9 +185,7 @@ def handle_spouse():
     if request.method == 'POST':
         body = request.get_json()
         person = []
-        for g_g in body['person']:
-            user = Forms.query.get(g_g)
-            person.append(user)
+
 
         # if body is None:
             # raise APIException("You need to specify the request body as a json object", status_code=400)
