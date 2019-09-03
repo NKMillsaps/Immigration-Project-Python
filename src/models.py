@@ -19,6 +19,9 @@ class Person(db.Model):
     lastname = db.Column(db.String(120), nullable=True)
     firstname = db.Column(db.String(120), nullable=True)
     middlename = db.Column(db.String(120), nullable=True)
+    lastname1 = db.Column(db.String(120), nullable=True)
+    firstname1 = db.Column(db.String(120), nullable=True)
+    middlename1 = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(12), nullable=True)
     mobile = db.Column(db.String(20), nullable=True)
     logged_in = db.Column(db.Boolean(), default=False)
@@ -28,6 +31,12 @@ class Person(db.Model):
     state = db.Column(db.String(120), nullable=True)
     zipCode = db.Column(db.String(120), nullable=True)
     country = db.Column(db.String(120), nullable=True)
+    address1 = db.Column(db.String(120), nullable=True)
+    apartment1 = db.Column(db.String(120), nullable=True)
+    city1 = db.Column(db.String(120), nullable=True)
+    state1 = db.Column(db.String(120), nullable=True)
+    zipCode1 = db.Column(db.String(120), nullable=True)
+    country1 = db.Column(db.String(120), nullable=True)
 
     #spouse_id = db.Column(db.Integer, unique=True, nullable=False)
 
@@ -46,6 +55,9 @@ class Person(db.Model):
             "lastname": self.lastname,
             "firstname": self.firstname,
             "middlename": self.middlename,
+            "lastname1": self.lastname1,
+            "firstname1": self.firstname1,
+            "middlename1": self.middlename1,
             "logged_in": self.logged_in,
             "application": application,
             "address": self.address,
@@ -56,6 +68,12 @@ class Person(db.Model):
             "country": self.country,
             "dayPhone": self.dayPhone,
             "mobile": self.mobile,
+            "address1": self.address1,
+            "apartment1": self.apartment1,
+            "city1": self.city1,
+            "state1": self.state1,
+            "zipCode1": self.zipCode1,
+            "country1": self.country1,
             "spouse": spouse
         }
 
@@ -127,12 +145,21 @@ class Forms(db.Model):
     middlename = db.Column(db.String(120), nullable=True)
     dayPhone = db.Column(db.String(12), nullable=True)
     mobile = db.Column(db.String(20), nullable=True)
+    lastname1 = db.Column(db.String(120), nullable=True)
+    firstname1 = db.Column(db.String(120), nullable=True)
+    middlename1 = db.Column(db.String(120), nullable=True)
     address = db.Column(db.String(120), nullable=True)
     apartment = db.Column(db.String(120), nullable=True)
     city = db.Column(db.String(120), nullable=True)
     state = db.Column(db.String(120), nullable=True)
     zipCode = db.Column(db.String(120), nullable=True)
     country = db.Column(db.String(120), nullable=True)
+    address1 = db.Column(db.String(120), nullable=True)
+    apartment1 = db.Column(db.String(120), nullable=True)
+    city1 = db.Column(db.String(120), nullable=True)
+    state1 = db.Column(db.String(120), nullable=True)
+    zipCode1 = db.Column(db.String(120), nullable=True)
+    country1 = db.Column(db.String(120), nullable=True)
     spouseEmail = db.Column(db.String(120), unique=True, nullable=True)
     spouseLastname = db.Column(db.String(120), nullable=True)
     spouseFirstname = db.Column(db.String(120), nullable=True)
@@ -164,12 +191,21 @@ class Forms(db.Model):
             "lastname": self.lastname,
             "firstname": self.firstname,
             "middlename": self.middlename,
+            "lastname1": self.lastname1,
+            "firstname1": self.firstname1,
+            "middlename1": self.middlename1,
             "address": self.address,
             "apartment": self.apartment,
             "city": self.city,
             "state": self.state,
             "zipCode": self.zipCode,
             "country": self.country,
+            "address1": self.address1,
+            "apartment1": self.apartment1,
+            "city1": self.city1,
+            "state1": self.state1,
+            "zipCode1": self.zipCode1,
+            "country1": self.country1,
             "dayPhone": self.dayPhone,
             "mobile": self.mobile,
             "spouseEmail": self.spouseEmail,

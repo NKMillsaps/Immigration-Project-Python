@@ -77,7 +77,6 @@ def handle_person():
 
         if body is None:
             raise APIException("You need to specify the request body as a json object", status_code=400)
-
         if "email" not in body:
             raise APIException("You need to specify the email", status_code=400)
         if "username" not in body:
@@ -92,8 +91,14 @@ def handle_person():
             raise APIException("You need to specify Day Phone or N/A", status_code=400)
         if "mobile" not in body:
             raise APIException("You need to specify your mobile phone number", status_code=400)
+        if "lastname1" not in body:
+            raise APIException("You need to specify Last Name or N/A", status_code=400)
+        if "firstname1" not in body:
+            raise APIException("You need to specify the First Name or N/A", status_code=400)
+        if "middlename1" not in body:
+            raise APIException("You need to specify the Middle Name or N/A", status_code=400)
 
-        user1 = Person(email=body["email"], application=application, spouse=spouse, username=body["username"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"] )
+        user1 = Person(email=body["email"], application=application, spouse=spouse, username=body["username"], lastname=body["lastname"], firstname=body["firstname"], middlename=body["middlename"], dayPhone=body["dayPhone"], mobile=body["mobile"], lastname1=body["lastname1"], firstname1=body["firstname1"], middlename1=body["middlename1"], )
         db.session.add(user1)
         db.session.commit()
         return "ok", 200
@@ -120,7 +125,6 @@ def get_single_person(person_id):
         user1 = Person.query.get(person_id)
         if user1 is None:
             raise APIException('User not found', status_code=404)
-
         if "username" in body:
             user1.username = body["username"]
         if "email" in body:
@@ -137,6 +141,18 @@ def get_single_person(person_id):
             user1.zipCode = body["zipCode"]
         if "country" in body:
             user1.country = body["country"]
+        if "address1" in body:
+            user1.address1 = body["address1"]
+        if "apartment1" in body:
+            user1.apartment1 = body["apartment1"]
+        if "city1" in body:
+            user1.city1 = body["city1"]
+        if "state1" in body:
+            user1.state1 = body["state1"]
+        if "zipCode1" in body:
+            user1.zipCode1 = body["zipCode1"]
+        if "country1" in body:
+            user1.country1 = body["country1"]
         if "logged_in" in body:
             user1.logged_in = body["logged_in"]
 
@@ -187,8 +203,8 @@ def handle_spouse():
         person = []
 
 
-        # if body is None:
-            # raise APIException("You need to specify the request body as a json object", status_code=400)
+        if body is None:
+            raise APIException("You need to specify the request body as a json object", status_code=400)
         if "spouseEmail" not in body:
             raise APIException("You need to specify the email", status_code=400)
         if "spouseLastname" not in body:
@@ -218,6 +234,7 @@ def handle_spouse():
 
 @app.route('/spouse/<int:spouse_id>', methods=['PUT', 'GET', 'DELETE'])
 def get_single_spouse(spouse_id):
+
     """
     Single spouse
     """
@@ -279,7 +296,7 @@ def handle_application():
     if request.method == 'POST':
         body = request.get_json()
         forms = []
-        for g_g in body['forms']:
+        for g_g in body['form']:
             form = Forms.query.get(g_g)
             forms.append(form)
     # if body is None:
@@ -391,7 +408,6 @@ def get_single_forms(forms_id):
         form1 = Forms.query.get(forms_id)
         if form1 is None:
             raise APIException('Information not found', status_code=404)
-
         if "forms_name" in body:
             form1.forms_name = body["forms_name"]
         if "email" in body:
