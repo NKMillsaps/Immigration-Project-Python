@@ -102,6 +102,7 @@ def handle_person():
         db.session.add(user1)
         db.session.commit()
         return "ok", 200
+
     # GET request
     if request.method == 'GET':
         all_people = Person.query.all()
